@@ -24,5 +24,18 @@
                     New-Item -Path 'C:\' -Name 'WinOps.txt' -Value 'DSC + Test-Kitchen Rocks'
                 }
             }
+            Script gotit
+            {
+                GetScript = { 
+                    return @{ 'IsFilePresent' = (Test-Path 'C:\gotit.txt') }
+                }
+                
+                TestScript = {
+                    if (Test-Path 'C:\gotit.txt') { return $true }
+                    return $false
+                }
+                
+                SetScript = { New-Item -Path 'C:\' -Name 'gotit.txt' -Value 'someContent' -ItemType file }
+            }
     }
 }
